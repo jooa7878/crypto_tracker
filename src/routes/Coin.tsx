@@ -7,6 +7,7 @@ import {
   useLocation,
   useParams,
   useRouteMatch,
+  useHistory,
 } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
@@ -21,10 +22,11 @@ const Container = styled.div`
 `;
 
 const Header = styled.header`
-  height: 10vh;
+  height: 100px;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 `;
 const Title = styled.h1`
   color: ${(props) => props.theme.accentColor};
@@ -79,6 +81,25 @@ const Tab = styled.span<{ isActive: boolean }>`
     props.isActive ? props.theme.accentColor : props.theme.textColor};
   a {
     display: block;
+  }
+`;
+
+const Back = styled.button`
+  position: absolute;
+  top: 30px;
+  left: 0;
+  border: 0;
+  background-color: transparent;
+  color: #fff;
+  font-size: 20px;
+  padding: 10px;
+  cursor: pointer;
+  border: 1px solid #fff;
+  border-radius: 50px;
+  transition: 0.2s;
+  &:hover {
+    color: ${(props) => props.theme.bgColor};
+    background-color: #fff;
   }
 `;
 
@@ -150,6 +171,7 @@ function Coin() {
   const { state } = useLocation<RouteState>();
   const priceMatch = useRouteMatch("/:coinId/price");
   const chartMatch = useRouteMatch("/:coinId/chart");
+  const history = useHistory();
 
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
@@ -164,6 +186,11 @@ function Coin() {
   );
 
   const loading = infoLoading || tickersLoading;
+
+  const onClick = () => {
+    history.goBack();
+  };
+
   return (
     <Container>
       <Helmet>
@@ -172,6 +199,7 @@ function Coin() {
         </title>
       </Helmet>
       <Header>
+        <Back onClick={onClick}>&larr;</Back>
         <Title>
           {state?.name ? state.name : loading ? "Loading ..." : infoData?.name}
         </Title>
