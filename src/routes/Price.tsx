@@ -90,6 +90,7 @@ function Price({ coinId }: IPrice) {
               {data === undefined
                 ? null
                 : Math.abs(data?.quotes.USD.percent_change_24h)}
+              %
               {isActive ? (
                 <ArrowUpward style={{ fontSize: 30 }}></ArrowUpward>
               ) : (
