@@ -32,11 +32,21 @@ function Chart({ coinId }: ChartProps) {
         "Loading Chart ..."
       ) : (
         <ApexChart
-          type="line"
+          type="candlestick"
           series={[
             {
               name: "Price",
-              data: data?.map((price) => price.close),
+              data: data?.map((price) => {
+                return {
+                  x: price.time_close,
+                  y: [
+                    price.open.toFixed(2),
+                    price.high.toFixed(2),
+                    price.low.toFixed(2),
+                    price.close.toFixed(2),
+                  ],
+                };
+              }),
             },
           ]}
           options={{
@@ -52,31 +62,17 @@ function Chart({ coinId }: ChartProps) {
               background: "transparent",
             },
             grid: { show: false },
-            stroke: {
-              curve: "smooth",
-              width: 4,
-            },
             yaxis: { show: false },
             xaxis: {
               axisBorder: { show: false },
               labels: {
-                show: false,
+                show: true,
               },
               axisTicks: {
                 show: false,
               },
-              categories: data?.map((price) => price.time_close),
+              categories: data?.map((price) => price.open),
               type: "datetime",
-            },
-            fill: {
-              type: "gradient",
-              gradient: { gradientToColors: ["#0be881"], stops: [0, 100] },
-            },
-            colors: ["#0fbcf9"],
-            tooltip: {
-              y: {
-                formatter: (value) => `$ ${value.toFixed(2)}`,
-              },
             },
           }}
         />

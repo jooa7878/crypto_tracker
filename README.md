@@ -2,8 +2,10 @@
 
 crypto tracker project using ReactJs and TypeScript
 
-## Things To Implement
+## Using
 
-- Back button (Done, might be modified)
-- Make own price tab
-- Change chart's type to candlestick
+- TypeScript
+- Styled Components
+- ApexCharts
+- ReactQuery
+- React Helmet

@@ -188,7 +188,7 @@ function Coin() {
   const loading = infoLoading || tickersLoading;
 
   const onClick = () => {
-    history.goBack();
+    history.push("/");
   };
 
   return (
@@ -243,7 +243,7 @@ function Coin() {
           </Tabs>
           <Switch>
             <Route path={`/:coinId/price`}>
-              <Price></Price>
+              <Price coinId={coinId}></Price>
             </Route>
             <Route path={`/:coinId/chart`}>
               <Chart coinId={coinId}></Chart>
